@@ -1,0 +1,25 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+# deal with admin first
+RewriteCond %{REQUEST_URI} ^/ro108/(admin) 
+RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/ro108/backend/web/(assets|css)/  
+RewriteCond %{REQUEST_URI} ^/ro108/(admin)  
+RewriteRule ^.*$ backend/web/index.php [L]
+
+
+RewriteCond %{REQUEST_URI} ^/(assets|css|js|images|fonts)  
+RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+RewriteRule ^fonts/(.*)$ frontend/web/fonts/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|js|images|fonts)/  
+RewriteCond %{REQUEST_URI} !index.php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ frontend/web/index.php
