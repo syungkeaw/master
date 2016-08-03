@@ -42,7 +42,11 @@ return [
                 '<server:loki>/<controller>' => 'loki/<controller>/index',
                 '<server:loki>/<controller>/<action:\w*>' => 'loki/<controller>/<action>',
                 '<server:odin>/<controller>' => 'odin/<controller>/index',
-                '<server:odin>/<controller>/<action:\w*>' => 'odin/<controller>/<action>',
+                '<server:odin>/<controller>/<action:\w*>' => 'odin/<controller>/<action>',                
+                '<server:chaos>/<controller>' => 'chaos/<controller>/index',
+                '<server:chaos>/<controller>/<action:\w*>' => 'chaos/<controller>/<action>',                
+                '<server:iris>/<controller>' => 'iris/<controller>/index',
+                '<server:iris>/<controller>/<action:\w*>' => 'iris/<controller>/<action>',
 
                 '<server:eden>/<controller>' => 'eden/<controller>/index',
                 '<server:eden>/<controller>/<action:\w*>' => 'eden/<controller>/<action>',

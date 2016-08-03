@@ -74,6 +74,8 @@ $this->registerCss("
         ['label' => Icon::show('server'). 'Thor', 'url' => ['/thor/market'], 'options' => Yii::$app->request->get('server') == 'thor' ? ['class' => 'active'] : []],
         ['label' => Icon::show('server'). 'Loki', 'url' => ['/loki/market'], 'options' => Yii::$app->request->get('server') == 'loki' ? ['class' => 'active'] : []],
         ['label' => Icon::show('server'). 'Odin', 'url' => ['/odin/market'], 'options' => Yii::$app->request->get('server') == 'odin' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('server'). 'Chaos', 'url' => ['/chaos/market'], 'options' => Yii::$app->request->get('server') == 'chaos' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('server'). 'Iris', 'url' => ['/iris/market'], 'options' => Yii::$app->request->get('server') == 'iris' ? ['class' => 'active'] : []],
         ['label' => Icon::show('server'). 'Eden', 'url' => ['/eden/market'], 'options' => Yii::$app->request->get('server') == 'eden' ? ['class' => 'active'] : []],
 
         // ['label' => 'Setting', 'url' => ['/shop/index'], 'visible' => !Yii::$app->user->isGuest],
