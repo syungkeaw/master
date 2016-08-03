@@ -192,6 +192,7 @@ class CommonMarketController extends Controller
             Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'lastServer',
                 'value' => Yii::$app->request->get('server'),
+                'expire' => (time() + 60 * 60 * 24 * 7),
             ]));
         }
     }
