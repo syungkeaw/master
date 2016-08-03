@@ -52,6 +52,7 @@ class CommonMarketController extends Controller
 
     public function actionIndex()
     {
+        $this->handleLastServer();
         $searchModel = new ShopItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
@@ -177,5 +178,14 @@ class CommonMarketController extends Controller
     {
         $this->layout = 'detail';
         return $this->render('detail', ['model' => $this->findModel($id)]);
+    }
+
+    protected function handleLastServer(){
+        if(Yii::$app->request->cookies->getValue('lastServer', 'thor') != Yii::$app->request->get('server')){
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'lastServer',
+                'value' => Yii::$app->request->get('server'),
+            ]));
+        }
     }
 }

@@ -84,7 +84,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['thor/market']);
+        return $this->redirect([Yii::$app->request->cookies->getValue('lastServer', 'thor'). '/market']);
     }
 
     /**
