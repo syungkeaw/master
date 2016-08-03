@@ -71,13 +71,14 @@ $this->registerCss("
     $menuItems = [
         // ['label' => 'Home', 'url' => Yii::$app->homeUrl],
         
-        ['label' => Icon::show('server'). 'Thor', 'url' => ['/thor/market'], 'options' => Yii::$app->request->get('server') == 'thor' ? ['class' => 'active'] : []],
-        ['label' => Icon::show('server'). 'Loki', 'url' => ['/loki/market'], 'options' => Yii::$app->request->get('server') == 'loki' ? ['class' => 'active'] : []],
-        ['label' => Icon::show('server'). 'Odin', 'url' => ['/odin/market'], 'options' => Yii::$app->request->get('server') == 'odin' ? ['class' => 'active'] : []],
-        ['label' => Icon::show('server'). 'Chaos', 'url' => ['/chaos/market'], 'options' => Yii::$app->request->get('server') == 'chaos' ? ['class' => 'active'] : []],
-        ['label' => Icon::show('server'). 'Iris', 'url' => ['/iris/market'], 'options' => Yii::$app->request->get('server') == 'iris' ? ['class' => 'active'] : []],
-        ['label' => Icon::show('server'). 'Eden', 'url' => ['/eden/market'], 'options' => Yii::$app->request->get('server') == 'eden' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('gavel'). 'Thor', 'url' => ['/thor/market'], 'options' => Yii::$app->request->get('server') == 'thor' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('magic'). 'Loki', 'url' => ['/loki/market'], 'options' => Yii::$app->request->get('server') == 'loki' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('bolt'). 'Odin', 'url' => ['/odin/market'], 'options' => Yii::$app->request->get('server') == 'odin' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('leaf'). 'Chaos', 'url' => ['/chaos/market'], 'options' => Yii::$app->request->get('server') == 'chaos' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('diamond'). 'Iris', 'url' => ['/iris/market'], 'options' => Yii::$app->request->get('server') == 'iris' ? ['class' => 'active'] : []],
+        ['label' => Icon::show('bug'). 'Eden', 'url' => ['/eden/market'], 'options' => Yii::$app->request->get('server') == 'eden' ? ['class' => 'active'] : []],
 
+        ['label' => '|'],
         // ['label' => 'Setting', 'url' => ['/shop/index'], 'visible' => !Yii::$app->user->isGuest],
         ['label' => Icon::show('user-plus'). Yii::t('app', 'Register'), 'url' => ['/user/registration/register'], 'visible' => Yii::$app->user->isGuest],
     ];
