@@ -43,7 +43,7 @@ class CommonShopController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'cart', 'update', 'delete', 'close', 'open'],
+                        'actions' => ['index', 'cart', 'create', 'update', 'delete', 'close', 'open'],
                         'roles' => ['@'],
                     ],
                     [
@@ -286,7 +286,7 @@ class CommonShopController extends Controller
                 }
                 return Yii::$app->user->isGuest ? 
                     $this->redirect([Yii::$app->request->get('server') .'/market']) :
-                    $this->redirect(['/shop/index']);
+                    $this->redirect([Yii::$app->request->get('server') .'/shop']);
             }
         } 
     }
