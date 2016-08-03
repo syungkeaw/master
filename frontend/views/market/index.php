@@ -36,7 +36,12 @@ $label = [
 $this->registerJs("
 ", View::POS_HEAD);
 
-echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
+if(Yii::$app->user->isGuest){
+    echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
+}else{
+    echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
+}
+
 ?>
 
 <div class="shop-item-index">

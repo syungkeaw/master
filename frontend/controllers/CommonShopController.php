@@ -19,8 +19,13 @@ use yii\web\ForbiddenHttpException;
 /**
  * ShopController implements the CRUD actions for Shop model.
  */
-class ShopController extends Controller
+class CommonShopController extends Controller
 {
+    public function getViewPath()
+    {
+        return Yii::getAlias('@frontend/views/shop');
+    }
+
     /**
      * @inheritdoc
      */
@@ -38,8 +43,13 @@ class ShopController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'cart', 'create', 'update', 'delete', 'close', 'open'],
+                        'actions' => ['index', 'cart', 'update', 'delete', 'close', 'open'],
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create',],
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -54,8 +64,9 @@ class ShopController extends Controller
     {
         $searchModel = new ShopItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
         $dataProvider->query->andFilterWhere(['shop.created_by' => Yii::$app->user->identity->id]);
-        $dataProvider->pagination->pageSize = 10;
+        $dataProvider->pagination->pageSize = 12;
         $items = Item::find()->all();
 
         $shopItem = ShopItem::find()->asArray()->all();
@@ -273,7 +284,9 @@ class ShopController extends Controller
 
                     }
                 }
-                return $this->redirect(['index']);
+                return Yii::$app->user->isGuest ? 
+                    $this->redirect([Yii::$app->request->get('server') .'/market']) :
+                    $this->redirect(['/shop/index']);
             }
         } 
     }

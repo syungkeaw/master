@@ -17,8 +17,13 @@ use yii\helpers\ArrayHelper;
 /**
  * ShopItemController implements the CRUD actions for ShopItem model.
  */
-class MarketController extends Controller
+class CommonMarketController extends Controller
 {
+    public function getViewPath()
+    {
+        return Yii::getAlias('@frontend/views/market');
+    }
+
     /**
      * @inheritdoc
      */
@@ -47,32 +52,9 @@ class MarketController extends Controller
 
     public function actionIndex()
     {
-        return $this->redirect(['eden']);
-    }
-
-    public function actionEden()
-    {
-        $server = 1;
-        return $this->renderMarket($server);       
-    }
-
-    public function actionThor()
-    {
-        $server = 2;
-        return $this->renderMarket($server);
-    }
-
-    public function actionLoki()
-    {
-        $server = 3;
-        return $this->renderMarket($server);
-    }
-
-    public function renderMarket($server)
-    {
         $searchModel = new ShopItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['shop.server' => $server]);
+        $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
         $dataProvider->query->andFilterWhere(['shop.status' => 10]);
         $dataProvider->query->andFilterWhere(['shop_item.status' => 10]);
         $items = Item::find()->all();
@@ -92,7 +74,7 @@ class MarketController extends Controller
             'dataProvider' => $dataProvider,
             'items' => $items,
             'option_item' => $option_item,
-            'server' => Shop::$server[$server],
+            'server' => Yii::$app->request->get('server'),
         ]);
     }
 
