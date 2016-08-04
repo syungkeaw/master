@@ -60,7 +60,7 @@ class CommonMarketController extends Controller
         $dataProvider->query->andFilterWhere(['shop_item.status' => 10]);
         $dataProvider->query->andWhere(
             ['OR', 
-                ['>', 'shop_item.created_at', (time()- 60 * 60 * 2)],
+                ['>', 'shop_item.created_at', (time()- 60 * 60 * 3)],
                 ['IS NOT', 'shop.created_by', null],
             ]
         );
