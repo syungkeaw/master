@@ -34,7 +34,8 @@ $label = [
 ];
 
 $this->registerJs("
-", View::POS_HEAD);
+    $('[data-toggle=\'tooltip\']').tooltip();
+", View::POS_READY);
 
 if(Yii::$app->user->isGuest){
     echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
@@ -64,7 +65,13 @@ if(Yii::$app->user->isGuest){
                             'data-target' => '#detailModal',
                             'onClick' => '$("#detailModal iframe").attr("src", "'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'")',
                         ]);
-                    return $item;
+                    return $item .
+                        ($model->shop['created_by'] ? ' '. Icon::show('registered', [
+                            'class' => 'text-success',
+                            'style' => 'font-size:12px',
+                            'data-toggle' => 'tooltip',
+                            'title' => Yii::t('app', 'registered'),
+                        ]) : '');
                 },
                 'format' => 'raw',
                 'filter' => Typeahead::widget([
@@ -180,14 +187,42 @@ if(Yii::$app->user->isGuest){
                 'value' => function($model){
                     $items = [];
                     array_push($items, [
-                        'label' => Icon::show('bug'). Yii::t('app', 'Hide'), 'url' => ['hide', 'id' => $model->id,]
+                        'label' => Icon::show('eye-slash'). Yii::t('app', 'Hide'),
+                        'url' => ['hide', 'id' => $model->id],
+                        'options' => [
+                            'data-toggle' => 'tooltip',
+                            'title' => Yii::t('app', 'Click to hide it if you are not interested in this item.'),
+                        ]
+                    ]);
+
+                    array_push($items, [
+                        'label' => Icon::show('bug'). Yii::t('app', 'Mark Delete'). '('. $model['delete_count'] .')',
+                        'url' => ['mark-delete', 'id' => $model->id],
+                        'options' => [
+                            'data-toggle' => 'tooltip',
+                            'title' => Yii::t('app', 'Report if this item is spam.'),
+                        ]
                     ]);
 
                     if(!Yii::$app->user->isGuest){
                         array_push($items, 
                         '<li class="divider"></li>',
-                        ['label' => Icon::show('thumbs-down'). Yii::t('app', 'Dislike'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 1]],
-                        ['label' => Icon::show('thumbs-up'). Yii::t('app', 'Like'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 2]]
+                        [
+                            'label' => Icon::show('thumbs-down'). Yii::t('app', 'Dislike'),
+                            'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 1],
+                            'options' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => Yii::t('app', 'Click to give owner bad feedback if many bad feedback, This item will be deleted.'),
+                            ]
+                        ],
+                        [
+                            'label' => Icon::show('thumbs-up'). Yii::t('app', 'Like'),
+                            'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 2],
+                            'options' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => Yii::t('app', 'Click to give owner good feedback. Give them more motivation.'),
+                            ]
+                        ]
                         );
                     }
 

@@ -47,7 +47,7 @@ class ShopItem extends \yii\db\ActiveRecord
     {
         return [
             // [['shop_id'], 'required'],
-            [['item_id', 'shop_id', 'price', 'amount', 'created_at', 'updated_at', 'card_1', 'card_2', 'card_3', 'card_4', 'very', 'element', 'enhancement'], 'integer'],
+            [['item_id', 'shop_id', 'price', 'amount', 'created_at', 'updated_at', 'card_1', 'card_2', 'card_3', 'card_4', 'very', 'element', 'enhancement', 'delete_count'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['item_id', function ($attribute, $params) {
                 if(!(empty($this->item_id) & empty($this->price) & empty($this->amount))){
@@ -83,6 +83,7 @@ class ShopItem extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'option' => Yii::t('app', 'Option'),
             'enhancement' => Yii::t('app', 'Enhancement'),
+            'delete_count' => Yii::t('app', 'Delete Count'),
         ];
     }
 

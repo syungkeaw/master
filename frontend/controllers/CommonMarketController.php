@@ -218,4 +218,40 @@ class CommonMarketController extends Controller
 
         return $this->redirect(Yii::$app->request->referrer);
     }
+
+    public function actionMarkDelete($id)
+    {
+        
+        $reportItems = Yii::$app->request->cookies->getValue('reportItems');
+        $reportItems = json_decode($reportItems);
+        $reportItems = !is_array($reportItems) ? [$reportItems] : $reportItems;
+
+        if(in_array($id, $reportItems)){
+            Yii::$app->getSession()->setFlash('danger', Yii::t('app', 'Fail, You have reported already.'));
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+        $model = $this->findModel($id);
+        $model->delete_count = $model->delete_count + 1;
+        $model->detachBehavior('timestamp');
+        
+        if($model->save()){
+            array_push($reportItems, $id);
+
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'reportItems',
+                'value' => json_encode($reportItems),
+                'expire' => (time() + 60 * 60 * 24 * 7),
+            ]));
+
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Successful, This item will be deleted if there are many people reporting.', [
+                'item_name' => $model->item->item_name,
+                'shop_name' => $model->shop->shop_name,
+            ]));
+        }else{
+            Yii::$app->getSession()->setFlash('danger', Yii::t('app', 'Fail, Something went wrong.'));
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
 }
