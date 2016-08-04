@@ -160,7 +160,7 @@ $this->title = $model->item->nameSlot;
 
 <div class="row">
     <div class="col-md-12">
-        <div class="fb-comments" data-numposts="5" data-width="850"></div>
+        <div class="fb-comments" data-numposts="5" data-width="700"></div>
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];

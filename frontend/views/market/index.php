@@ -33,10 +33,6 @@ $label = [
     ['label' => 'default', 'icon' => '997'],
 ];
 
-$this->registerJs("
-    $('[data-toggle=\'tooltip\']').tooltip();
-", View::POS_READY);
-
 if(Yii::$app->user->isGuest){
     echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
 }else{
@@ -46,7 +42,12 @@ if(Yii::$app->user->isGuest){
 ?>
 
 <div class="shop-item-index">
-<?php Pjax::begin(['timeout' => 15000 ]); ?>
+<?php 
+Pjax::begin(['timeout' => 15000 ]); 
+$this->registerJs("
+    $('[data-toggle=\'tooltip\']').tooltip();
+", View::POS_READY);
+?>
 <h3><?= $server ?> <small><?= Html::a('<span class="glyphicon glyphicon-refresh"></span> '. Yii::t('app', 'Clear & Refresh'), ['']) ?></small></h3>
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
