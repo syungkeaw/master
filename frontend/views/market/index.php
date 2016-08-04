@@ -208,7 +208,7 @@ $this->registerJs("
                     }
 
                     array_push($items, [
-                        'label' => Icon::show('comment'). Yii::t('app', 'Comment'). '(<span class="fb-comments-count" data-href="'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'"></span>)',
+                        'label' => Icon::show('comment'). Yii::t('app', 'Comment'). '(<span class="fb-comments-count" data-href="'. Yii::$app->request->hostInfo . Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'"></span>)',
                         'url' => '#',
                         'options' => [
                             'class' => 'modalButton',
