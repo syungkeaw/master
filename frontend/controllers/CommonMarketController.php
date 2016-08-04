@@ -65,6 +65,10 @@ class CommonMarketController extends Controller
             ]
         );
 
+        $hideItems = json_decode(Yii::$app->request->cookies->getValue('hideItems'));
+        $hideItems = !is_array($hideItems) ? [$hideItems] : $hideItems;
+        $dataProvider->query->andWhere(['NOT IN', 'shop_item.id', array_filter($hideItems)]);
+
         $items = Item::find()->all();
 
         $shopItem = ShopItem::find()->asArray()->all();
@@ -195,5 +199,23 @@ class CommonMarketController extends Controller
                 'expire' => (time() + 60 * 60 * 24 * 7),
             ]));
         }
+    }
+
+    public function actionHide($id)
+    {
+        $hideItems = Yii::$app->request->cookies->getValue('hideItems');
+        $hideItems = json_decode($hideItems);
+        $hideItems = !is_array($hideItems) ? [$hideItems] : $hideItems;
+        array_push($hideItems, $id);
+
+        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => 'hideItems',
+            'value' => json_encode($hideItems),
+            'expire' => (time() + 60 * 60 * 24 * 7),
+        ]));
+
+        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Successful, The item has been hidden.'));
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

@@ -178,16 +178,23 @@ if(Yii::$app->user->isGuest){
             ],
             [
                 'value' => function($model){
-                    if(Yii::$app->user->isGuest) return '';
+                    $items = [];
+                    array_push($items, [
+                        'label' => Icon::show('bug'). Yii::t('app', 'Hide'), 'url' => ['hide', 'id' => $model->id,]
+                    ]);
+
+                    if(!Yii::$app->user->isGuest){
+                        array_push($items, 
+                        '<li class="divider"></li>',
+                        ['label' => Icon::show('thumbs-down'). Yii::t('app', 'Dislike'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 1]],
+                        ['label' => Icon::show('thumbs-up'). Yii::t('app', 'Like'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 2]]
+                        );
+                    }
 
                     $menu = Html::beginTag('div', ['class'=>'dropdown']);
                     $menu .= Html::a('<span class="glyphicon glyphicon-option-horizontal"></span>', [''], ['data-toggle'=>'dropdown']);
                     $menu .= DropdownX::widget([
-                        'items' => [
-                            ['label' => Icon::show('thumbs-down'). Yii::t('app', 'Dislike'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 1]],
-                            ['label' => Icon::show('thumbs-up'). Yii::t('app', 'Like'), 'url' => ['feedback', 'id' => $model->id, 'feedback_id' => 2]],
-                            // '<li class="divider"></li>',
-                        ],
+                        'items' => $items,
                         'encodeLabels' => false,
                     ]); 
                     $menu .= Html::endTag('div');

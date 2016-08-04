@@ -8,6 +8,7 @@ return [
     'My Shop' => 'ร้านค้าของฉัน',
     'RO108 :: Easy to Buy & sell Ragnarok Online\'s Items Server Thor, Loki, Eden' => 'RO108 :: ซื้อง่าย ขายคล่อง สำหรับไอเทมเกม Ragnarok Online server x Thor Loki Eden',
     'Items' => 'ไอเทม',
+    'Hide' => 'ซ่อน',
     'Selling Items' => 'ไอเทมกำลังขาย',
     'Price (Zeny)' => 'ราคา (Zeny)',
     'Owner' => 'เจ้าของร้าน',
@@ -72,4 +73,5 @@ return [
     'Fail!, Your item cannot be sell at the moment. Please try again.' => 'ล้มเหลว!!, ไอเทมชิ้นนี้ยังไม่ถูกเก็บ กรุณาลองใหม่อีกครั้ง!',
     'Success!, Your item has been selling at the moment.' => 'สำเร็จ!!, ไอเทมชิ้นนี้ถูกวางขายเรียบร้อยแล้ว ขอให้ขายออกเร็วๆ นะคะ!',
     'Fail!, Your item cannot be stop to sell at the moment. Please try again.' => 'ล้มเหลว!!, ไอเทมชิ้นนี้ยังไม่ถูกวางขาย กรุณาลองใหม่อีกครั้ง!',
+    'Successful, The item has been hidden.' => 'สำเร็จ!!, ไอเทมชิ้นนี้จะไม่ถูกแสดงสำหรับคุณอีกต่อไป!',
 ];
