@@ -106,21 +106,63 @@ $this->registerCss("
 
     <div class="container" style="background: #f1f1f1">
         <div class="row">
-            <div class="col-md-offset-2 col-md-4">
+            <div class="col-md-4">
                 <div class="fb-page" data-href="https://www.facebook.com/ro108th/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ro108shop/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ro108shop/">RO108</a></blockquote></div>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">ข่าวสาร</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-fire"></span> ข่าวสาร/อัพเดท 4 สิงหาคม 2559</h3>
                     </div>
                     <div class="panel-body">
-                        <h2>เปิดใช้งานแล้ว ^^</h2>
                         <h3> ฝากกด Like Page ด้วยนะ</h3>
-                        <p>กำลังจะมีระบบบัญชีดำด้วยนะ..</p>
+                        <h4><?= Icon::show('rocket') ?> เวอร์ชันล่าสุด</h4>
+                        <ol>
+                            <li>สามารถซ่อนไอเทมที่ไม่ต้องการติดตามได้</li>
+                            <li>สามารถแจ้งลบไอเทมขยะเกรียนโพสมั่วได้ ถ้าครบ 10 ไอเทมจะถูกลบ (อาจมีการเปลี่ยนแปลงตัวเลขให้เหมาะสม)</li>
+                            <li>แสดงไอคอน <span class="glyphicon glyphicon-registration-mark"></span> สำหรับผู้ที่ login แล้ว</li>
+                            <li>ถ้าไม่ login ไอเทมจะถูกขาย 3 ชั่วโมง ถ้า login 6 ชั่วโมงและสามารถเปิดให้ได้โดยไม่ต้องแอดไอเทมใหม่</li>
+                            <li>Facebook คอมเม้นสำหรับแสดงความเห็นข้างล่างเลย <?= Icon::show('sort-desc', ['style' => 'color:red;']) ?></li>
+                        </ol>
+                        <h4><?= Icon::show('wheelchair-alt') ?> เวอร์ชันต่อไป</h4>
+                        <ol>
+                            <li>เปิดร้านรับซื้อไอเทม</li>
+                        </ol>
                     </div>
                 </div>
                 
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?= Icon::show('lightbulb-o') ?> ไอเดีย</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><?= Icon::show('quote-left') ?> ไอเดียพวกนี้เป็นสิ่งที่เพื่อนชาว RO เสนอมานะคะ.. <?= Icon::show('quote-right') ?></p>
+                        <ol>
+                            <li>ทำระบบ ยืนยันตน, เอารูปบัตรประชาชนถ่ายพร้อมกับหน้าตัวจริง, แล้วก็รูปตัวละครในเกม</li>
+                            <li>แต่ถ้ามีแบ่ง ฝ้่งขายกับซื้อก็ดี ไม่ก็มีให้เลือกว่ารับซื้อหรืออยากขาย แบ่งเป็นสีต่างกันก็ได้อยู่ในหน้าเดียวกัน</li>
+                            <li>อยากให้เพิ่มระบบ บัญชีคนโกงด้วยอ่ะครับ</li>
+                            <li>มีกล่อง facebook คอมเม้นแต่ละไอเทม</li>
+                            <li>IP ไหนถูกรายงานบ่อยบล็อคมันเลย</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="fb-comments" data-numposts="10" data-width="1000"></div>
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.7&appId=591767224330218";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
             </div>
         </div>
     </div>
