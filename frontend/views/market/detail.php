@@ -24,6 +24,8 @@ $this->registerCss("
 .wrap > .container {
     padding: 0px;
 }
+.detail-view td, .detail-view th { line-height: 0.846 !important; }
+.detail-view th { width:200px; }
 ");
 
 $this->title = $model->item->nameSlot;
@@ -154,4 +156,18 @@ $this->title = $model->item->nameSlot;
         'attributes' => $attributes,
     ]) ?>
 
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="fb-comments" data-numposts="5" data-width="850"></div>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.7&appId=591767224330218";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    </div>
 </div>

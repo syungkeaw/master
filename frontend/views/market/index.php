@@ -204,6 +204,17 @@ if(Yii::$app->user->isGuest){
                         ]
                     ]);
 
+                    array_push($items, [
+                        'label' => Icon::show('comment'). Yii::t('app', 'Comment'). '(<span class="fb-comments-count" data-href="'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'"></span>)',
+                        'url' => '#',
+                        'options' => [
+                            'class' => 'modalButton',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#detailModal',
+                            'onClick' => '$("#detailModal iframe").attr("src", "'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'")',
+                        ]
+                    ]);
+
                     if(!Yii::$app->user->isGuest){
                         array_push($items, 
                         '<li class="divider"></li>',
@@ -249,7 +260,7 @@ if(Yii::$app->user->isGuest){
         if(iFrameID) {
             // here you can make the height, I delete it first, then I make it again
             iFrameID.height = "";
-            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 250 + "px";
         }   
     }
 </script>   
