@@ -184,7 +184,7 @@ if(Yii::$app->user->isGuest){
                 ],
             ],
             [
-                'value' => function($model){
+                'value' => function($model) use ($reportItems){
                     $items = [];
                     array_push($items, [
                         'label' => Icon::show('eye-slash'). Yii::t('app', 'Hide'),
@@ -195,14 +195,16 @@ if(Yii::$app->user->isGuest){
                         ]
                     ]);
 
-                    array_push($items, [
-                        'label' => Icon::show('bug'). Yii::t('app', 'Mark Delete'). '('. $model['delete_count'] .')',
-                        'url' => ['mark-delete', 'id' => $model->id],
-                        'options' => [
-                            'data-toggle' => 'tooltip',
-                            'title' => Yii::t('app', 'Report if this item is spam.'),
-                        ]
-                    ]);
+                    if(!in_array($model->id, $reportItems)){
+                        array_push($items, [
+                            'label' => Icon::show('bug'). Yii::t('app', 'Mark Delete'). '('. $model['delete_count'] .')',
+                            'url' => ['mark-delete', 'id' => $model->id],
+                            'options' => [
+                                'data-toggle' => 'tooltip',
+                                'title' => Yii::t('app', 'Report if this item is spam.'),
+                            ]
+                        ]);
+                    }
 
                     array_push($items, [
                         'label' => Icon::show('comment'). Yii::t('app', 'Comment'). '(<span class="fb-comments-count" data-href="'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'"></span>)',

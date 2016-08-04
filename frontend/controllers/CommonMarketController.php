@@ -55,6 +55,7 @@ class CommonMarketController extends Controller
         $this->handleLastServer();
         $searchModel = new ShopItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 30;
         $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
         $dataProvider->query->andFilterWhere(['shop.status' => 10]);
         $dataProvider->query->andFilterWhere(['shop_item.status' => 10]);
@@ -82,12 +83,17 @@ class CommonMarketController extends Controller
         array_push($option, '994', '995', '996', '997');
         $option_item = Item::findAll(['source_id' => $option]);
 
+        $reportItems = Yii::$app->request->cookies->getValue('reportItems');
+        $reportItems = json_decode($reportItems);
+        $reportItems = !is_array($reportItems) ? [$reportItems] : $reportItems;
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'items' => $items,
             'option_item' => $option_item,
             'server' => Yii::$app->request->get('server'),
+            'reportItems' => $reportItems,
         ]);
     }
 
@@ -222,7 +228,6 @@ class CommonMarketController extends Controller
 
     public function actionMarkDelete($id)
     {
-        
         $reportItems = Yii::$app->request->cookies->getValue('reportItems');
         $reportItems = json_decode($reportItems);
         $reportItems = !is_array($reportItems) ? [$reportItems] : $reportItems;
