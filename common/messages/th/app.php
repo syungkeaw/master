@@ -10,7 +10,7 @@ return [
     'Items' => 'ไอเทม',
     'Shop Type' => 'ประเภท',
     'Hide' => 'ซ่อน',
-    'Selling Items' => 'ไอเทมกำลังขาย',
+    'Selling Items' => 'รายการไอเทม',
     'Price (Zeny)' => 'ราคา (Zeny)',
     'Owner' => 'เจ้าของร้าน',
     'Shop Name' => 'ชื่อร้าน',

@@ -50,7 +50,7 @@ $this->registerCss("
     <?php $this->head() ?>
 </head>
 <body style="
-    background: url('<?= Yii::getAlias('@web') ?>/images/background-ragnarok-online-.jpg');
+    background: url('<?= Yii::getAlias('@web') ?>/images/background-ragnarok-online-2.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size:cover;
@@ -124,10 +124,12 @@ $this->registerCss("
                             <li>ถ้าไม่ login ไอเทมจะถูกขาย 3 ชั่วโมง ถ้า login 6 ชั่วโมงและสามารถเปิดให้ได้โดยไม่ต้องแอดไอเทมใหม่</li>
                             <li>มีกล่อง facebook คอมเม้นในหน้ารายละเอียดของไอเทมแต่ละชิ้น</li>
                             <li>Facebook คอมเม้นสำหรับแสดงความเห็นข้างล่างเลย <?= Icon::show('sort-desc', ['style' => 'color:red;']) ?></li>
+                            <li>เปิดร้านรับซื้อไอเทม</li>
+                            <li>สามารถเลือกระยะเวลาในการแสดงไอเทม ค่าเริ่มต้นข้อ 4</li>
                         </ol>
                         <h4><?= Icon::show('wheelchair-alt') ?> เวอร์ชันต่อไป</h4>
                         <ol>
-                            <li>เปิดร้านรับซื้อไอเทม</li>
+                            <li>อยากให้เพิ่มระบบ บัญชีคนโกงด้วยอ่ะครับ</li>
                         </ol>
                     </div>
                 </div>
@@ -140,12 +142,12 @@ $this->registerCss("
                         <h3 class="panel-title"><?= Icon::show('lightbulb-o') ?> ไอเดีย</h3>
                     </div>
                     <div class="panel-body">
-                        <p><?= Icon::show('quote-left') ?> ไอเดียพวกนี้เป็นสิ่งที่เพื่อนชาว RO เสนอมานะคะ.. <?= Icon::show('quote-right') ?></p>
+                        <p><?= Icon::show('quote-left') ?> ไอเดียเหล่านี้เป็นสิ่งที่เพื่อนชาว RO เสนอมานะคะ.. <?= Icon::show('quote-right') ?></p>
                         <ol>
-                            <li>ทำระบบ ยืนยันตน, เอารูปบัตรประชาชนถ่ายพร้อมกับหน้าตัวจริง, แล้วก็รูปตัวละครในเกม</li>
-                            <li>แต่ถ้ามีแบ่ง ฝ้่งขายกับซื้อก็ดี ไม่ก็มีให้เลือกว่ารับซื้อหรืออยากขาย แบ่งเป็นสีต่างกันก็ได้อยู่ในหน้าเดียวกัน</li>
-                            <li>อยากให้เพิ่มระบบ บัญชีคนโกงด้วยอ่ะครับ</li>
-                            <li>IP ไหนถูกรายงานบ่อยบล็อคมันเลย</li>
+                            <li><?= Icon::show('circle-o') ?> ทำระบบ ยืนยันตน, เอารูปบัตรประชาชนถ่ายพร้อมกับหน้าตัวจริง, แล้วก็รูปตัวละครในเกม</li>
+                            <li><?= Icon::show('check-circle-o', ['class' => 'text-success']) ?> แต่ถ้ามีแบ่ง ฝ้่งขายกับซื้อก็ดี ไม่ก็มีให้เลือกว่ารับซื้อหรืออยากขาย แบ่งเป็นสีต่างกันก็ได้อยู่ในหน้าเดียวกัน</li>
+                            <li><?= Icon::show('circle-o') ?> อยากให้เพิ่มระบบ บัญชีคนโกงด้วยอ่ะครับ</li>
+                            <li><?= Icon::show('circle-o') ?> IP ไหนถูกรายงานบ่อยบล็อคมันเลย</li>
                         </ol>
                     </div>
                 </div>
