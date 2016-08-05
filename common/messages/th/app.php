@@ -92,4 +92,5 @@ return [
     'Week Later' => 'สัปดาห์ล่าสุด',
     'Month Later' => 'เดือนล่าสุด',
     'Default Later' => 'เลือกช่วงเวลา (ค่าเริ่มต้น)',
+    'Black List' => 'คนโกง',
 ];

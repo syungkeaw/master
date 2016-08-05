@@ -34,10 +34,12 @@ $label = [
 ];
 
 if(Yii::$app->user->isGuest){
-    echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
+    echo Html::a(Icon::show('cloud-upload'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
 }else{
-    echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
+    echo Html::a(Icon::show('cloud-upload'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
 }
+ 
+echo Html::a(Icon::show('user-secret'). Yii::t('app', 'Black List'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-default']);
 
 ?>
 
