@@ -176,6 +176,25 @@ $this->registerJs("
                 ],
             ],
             [
+                'attribute' => 'shop.shop_type',
+                'label' => Yii::t('app', 'Shop Type'),
+                'value' => function($model){
+                    return $model->shop['shop_type'] == 's' ? 
+                        Icon::show('usd', ['class' => 'text-success']) : Icon::show('btc', ['class' => 'text-info']);
+                },
+                'format' => 'raw',
+                'filter' => Html::dropDownList(
+                    'ShopItemSearch[shop.shop_type]',
+                    $searchModel['shop.shop_type'],
+                    [
+                        '' => Yii::t('app', 'All'),
+                        's' => Yii::t('app', 'Sale'),
+                        'b' => Yii::t('app', 'Buy'),
+                    ],
+                    ['class' => 'form-control']
+                ),
+            ],
+            [
                 'attribute' => 'updated_at',
                 'label' => Yii::t('app', 'Latest'),
                 'format' => ['date', 'php:d-H:i'],

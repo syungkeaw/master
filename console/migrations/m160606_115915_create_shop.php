@@ -31,6 +31,7 @@ class m160606_115915_create_shop extends Migration
             'updated_by' => $this->integer(),
             'updated_at' => $this->integer(),
             'information' => $this->string(),
+            'shop_type' => $this->string(1),
         ], $tableOptions);
     }
 

@@ -217,6 +217,7 @@ $this->registerCss("
             <?php $form = ActiveForm::begin(); ?>
             <div class="row">
                 <div class="col-md-6">
+                    <?= $form->field($shop_model, 'shop_type')->dropDownList(['s' => Yii::t('app', 'Sale'), 'b' => Yii::t('app', 'Buy')]) ?>
                     <?= $form->field($shop_model, 'shop_name')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($shop_model, 'character')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($shop_model, 'map')->dropDownList($maps) ?>

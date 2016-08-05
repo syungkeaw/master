@@ -57,12 +57,15 @@ class Shop extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['shop_name', 'map', 'server'], 'required'],
+            
+            [['shop_name', 'map', 'server', 'shop_type'], 'required'],
             [['not_found_count', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
             [['shop_name', 'location', 'character', 'map', 'server'], 'string', 'max' => 50],
+            [['shop_type'], 'string', 'max' => 1],
             [['information'], 'string', 'max' => 255],
             ['not_found_count', 'default', 'value' => 0],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['shop_type', 'default', 'value' => 's'],
             // ['location', 'required', 'message' => 'Location cannot be blank. Please click position in the map below.'],
         ];
     }
@@ -86,6 +89,7 @@ class Shop extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('app', 'Updated By'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'information' => Yii::t('app', 'More Information'),
+            'shop_type' => Yii::t('app', 'Shop Type'),
         ];
     }
 
