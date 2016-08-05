@@ -230,7 +230,7 @@ $this->registerJs("
             [
                 'attribute' => 'updated_at',
                 'label' => Yii::t('app', 'Latest'),
-                'format' => ['date', 'php:d-H:i'],
+                'format' => ['date', 'php:d M-H:i'],
                 'filter' => '<input type="text" style="display:none" name="duration" id="duration" value="'. Yii::$app->request->get('duration') .'">',
                 'headerOptions' => [
                     'class' => 'col-md-1'

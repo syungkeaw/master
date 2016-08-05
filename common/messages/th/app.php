@@ -14,7 +14,7 @@ return [
     'Price (Zeny)' => 'ราคา (Zeny)',
     'Owner' => 'เจ้าของร้าน',
     'Shop Name' => 'ชื่อร้าน',
-    'Latest' => 'วันที่-เวลา',
+    'Latest' => 'เวลา',
     'Dislike' => 'แย่',
     'Like' => 'เยี่ยม',
     'Clear & Refresh' => 'ล้างค่า & โหลดใหม่',
