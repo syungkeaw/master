@@ -72,6 +72,7 @@ $this->registerJs("
                     '4320' => '3 ' . Yii::t('app', 'Day Later'),
                     '10080' => '1 ' . Yii::t('app', 'Week Later'),
                     '43200' => '1 ' . Yii::t('app', 'Month Later'),
+                    '129600' => '3 ' . Yii::t('app', 'Month Later'),
                 ],
                 [
                     'class' => 'form-control',
