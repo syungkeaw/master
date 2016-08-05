@@ -60,12 +60,17 @@ class CommonMarketController extends Controller
         $dataProvider->query->andFilterWhere(['shop.status' => 10]);
         $dataProvider->query->andFilterWhere(['shop_item.status' => 10]);
         $dataProvider->query->andWhere(['<', 'shop_item.delete_count', 10]);
-        $dataProvider->query->andWhere(
-            ['OR', 
-                ['>', 'shop_item.created_at', (time()- 60 * 60 * 3)],
-                ['AND', ['IS NOT', 'shop.created_by', null], ['>', 'shop_item.updated_at', (time()- 60 * 60 * 6)]],
-            ]
-        );
+
+        if(empty(Yii::$app->request->get('duration')) || !is_numeric(Yii::$app->request->get('duration'))){
+            $dataProvider->query->andWhere(
+                ['OR', 
+                    ['>', 'shop_item.created_at', (time()- 60 * 60 * 3)],
+                    ['AND', ['IS NOT', 'shop.created_by', null], ['>', 'shop_item.updated_at', (time()- 60 * 60 * 6)]],
+                ]
+            );
+        }else{
+            $dataProvider->query->andWhere(['>', 'shop_item.updated_at', (time()- 60 * Yii::$app->request->get('duration'))]);
+        }
 
         $hideItems = json_decode(Yii::$app->request->cookies->getValue('hideItems'));
         $hideItems = !is_array($hideItems) ? [$hideItems] : $hideItems;

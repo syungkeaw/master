@@ -48,7 +48,40 @@ $this->registerJs("
     $('[data-toggle=\'tooltip\']').tooltip();
 ", View::POS_READY);
 ?>
-<h3><?= $server ?> <small><?= Html::a('<span class="glyphicon glyphicon-refresh"></span> '. Yii::t('app', 'Clear & Refresh'), ['']) ?></small></h3>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>
+            <?= strtoupper($server) ?>
+            <small><?= Html::a('<span class="glyphicon glyphicon-refresh"></span> '. Yii::t('app', 'Clear & Refresh'), ['']) ?></small>
+        </h3>
+    </div>
+    <div class="col-md-4" style="padding-top: 28px">
+        <?= Html::dropDownList(
+                'duration',
+                Yii::$app->request->get('duration'),
+                [
+                    '' => Yii::t('app', 'Default Later'),
+                    '5' => '5 ' . Yii::t('app', 'Minute Later'),
+                    '15' => '15 ' . Yii::t('app', 'Minute Later'),
+                    '30' => '30 ' . Yii::t('app', 'Minute Later'),
+                    '60' => '1 ' . Yii::t('app', 'Hour Later'),
+                    '120' => '2 ' . Yii::t('app', 'Hour Later'),
+                    '480' => '8 ' . Yii::t('app', 'Hour Later'),
+                    '1440' => '1 ' . Yii::t('app', 'Day Later'),
+                    '4320' => '3 ' . Yii::t('app', 'Day Later'),
+                    '10080' => '1 ' . Yii::t('app', 'Week Later'),
+                    '43200' => '1 ' . Yii::t('app', 'Month Later'),
+                ],
+                [
+                    'class' => 'form-control',
+                    'onChange' => '$("#duration").val(this.value).change();',
+                ]
+            )
+        ?>
+    </div>
+</div>
+
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -198,7 +231,7 @@ $this->registerJs("
                 'attribute' => 'updated_at',
                 'label' => Yii::t('app', 'Latest'),
                 'format' => ['date', 'php:d-H:i'],
-                'filter' => false,
+                'filter' => '<input type="text" style="display:none" name="duration" id="duration" value="'. Yii::$app->request->get('duration') .'">',
                 'headerOptions' => [
                     'class' => 'col-md-1'
                 ],

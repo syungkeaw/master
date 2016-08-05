@@ -50,7 +50,7 @@ $this->registerCss("
     <?php $this->head() ?>
 </head>
 <body style="
-    background: url('<?= Yii::getAlias('@web') ?>/images/background-ragnarok-online-2.jpg');
+    background: url('<?= Yii::getAlias('@web') ?>/images/background-ragnarok-online-.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size:cover;

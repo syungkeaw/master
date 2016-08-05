@@ -17,7 +17,7 @@ class ShopItemSearch extends ShopItem
     public function attributes()
     {
         // add related fields to searchable attributes
-        return array_merge(parent::attributes(), ['item.item_name', 'shop.shop_name', 'shop.shop_type', 'shop.character', 'shop.server', 'shop.status', 'option']);
+        return array_merge(parent::attributes(), ['item.item_name', 'shop.shop_name', 'shop.shop_type', 'shop.character', 'shop.server', 'shop.status', 'option', 'duration']);
     }
 
     /**
@@ -26,7 +26,7 @@ class ShopItemSearch extends ShopItem
     public function rules()
     {
         return [
-            [['id', 'shop_id', 'price', 'amount', 'created_at', 'updated_at', 'enhancement', 'shop.server', 'shop.status'], 'integer'],
+            [['id', 'shop_id', 'price', 'amount', 'created_at', 'updated_at', 'enhancement', 'shop.server', 'shop.status', 'duration'], 'integer'],
             [['item_id', 'item.item_name', 'shop.shop_name', 'shop.character', 'option', 'shop.shop_type'], 'string'],
         ];
     }
@@ -127,7 +127,7 @@ class ShopItemSearch extends ShopItem
                 ]
             );
         }
-        
+
         return $dataProvider;
     }
 }
