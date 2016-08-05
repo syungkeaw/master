@@ -18,8 +18,8 @@ class BlackListSearch extends BlackList
     public function rules()
     {
         return [
-            [['id', 'server', 'parent_id', 'status', 'bad_point', 'good_point', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
-            [['character_name', 'reason', 'youtube', 'facebook'], 'safe'],
+            [['id', 'parent_id', 'status', 'bad_point', 'good_point', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
+            [['character_name', 'reason', 'youtube', 'facebook', 'server'], 'safe'],
         ];
     }
 
@@ -60,7 +60,7 @@ class BlackListSearch extends BlackList
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'server' => $this->server,
+            'server' => Yii::$app->request->get('server'),
             'parent_id' => $this->parent_id,
             'status' => $this->status,
             'bad_point' => $this->bad_point,

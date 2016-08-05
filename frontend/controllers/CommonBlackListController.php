@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\Controllers;
+namespace frontend\controllers;
 
 use Yii;
 use common\models\BlackList;
@@ -12,8 +12,13 @@ use yii\filters\VerbFilter;
 /**
  * BlackListController implements the CRUD actions for BlackList model.
  */
-class BlackListController extends Controller
+class CommonBlackListController extends Controller
 {
+    public function getViewPath()
+    {
+        return Yii::getAlias('@frontend/views/black-list');
+    }
+
     /**
      * @inheritdoc
      */

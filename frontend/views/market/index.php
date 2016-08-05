@@ -39,7 +39,7 @@ if(Yii::$app->user->isGuest){
     echo Html::a(Icon::show('cloud-upload'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
 }
  
-echo Html::a(Icon::show('user-secret'). Yii::t('app', 'Black List'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-default']);
+echo Html::a(Icon::show('user-secret'). Yii::t('app', 'Black List'), [Yii::$app->request->get('server').'/black-list'], ['class' => 'btn btn-default']);
 
 ?>
 

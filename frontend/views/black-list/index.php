@@ -3,16 +3,25 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\icons\Icon;
+use yii\web\View;
+
+Icon::map($this);  
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BlackListSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->registerJs("
+    $('.toogle-tooltip').tooltip();
+", View::POS_READY);
 
 $this->title = Yii::t('app', 'Black Lists');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="black-list-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Icon::show('user-secret'). ' ' .Html::encode($this->title) ?> <small>Beta</small></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -23,23 +32,48 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'character_name',
-            'reason',
-            'server',
-            'parent_id',
-            // 'youtube',
-            // 'facebook',
-            // 'status',
-            // 'bad_point',
-            // 'good_point',
-            // 'created_by',
-            // 'created_at',
-            // 'updated_by',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'character_name',
+                'value' => function($model){
+                    $label = '<div class="ellipsis toogle-tooltip" title="'. $model['character_name'] .'" style="max-width: 300px;">'. $model['character_name'] .'</div>';
+                    return Html::a($label, ['view', 'id' => $model['id']]);
+                },
+                'format' => 'raw',
+                'headerOptions' => [
+                    'class' => 'col-md-2'
+                ],
+            ],
+            [
+                'attribute' => 'reason',
+                'value' => function($model){
+                    return '<div class="ellipsis toogle-tooltip" title="'. $model['reason'] .'" style="max-width: 500px;">'. $model['reason'] .'</div>';
+                },
+                'format' => 'raw',
+                'headerOptions' => [
+                    'class' => 'col-md-6'
+                ],
+            ],
+            [
+                'attribute' => 'bad_point',
+                'label' => Yii::t('app', 'Vote'),
+                'value' => function($model){
+                    $bad_size = $model['bad_point'] > $model['good_point'] ? 'font-size: 25px;color:red;' : '';
+                    $good_size = $model['good_point'] > $model['bad_point'] ? 'font-size: 25px;color:green;' : '';
+                    return  Icon::show('thumbs-down', ['style' => $bad_size]). ' ' .number_format($model['bad_point']). '   ' .
+                            Icon::show('thumbs-up', ['style' => $bad_size]). ' ' .number_format($model['good_point']);
+                },
+                'format' => 'raw',
+                'headerOptions' => [
+                    'class' => 'col-md-2'
+                ],
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'php:d M Y H:i:s'],
+                'headerOptions' => [
+                    'class' => 'col-md-2'
+                ],
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

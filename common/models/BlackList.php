@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "black_list".
@@ -24,6 +26,26 @@ use Yii;
  */
 class BlackList extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;   
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }   
+
+
     /**
      * @inheritdoc
      */
@@ -39,8 +61,10 @@ class BlackList extends \yii\db\ActiveRecord
     {
         return [
             [['character_name', 'reason', 'server'], 'required'],
-            [['server', 'parent_id', 'status', 'bad_point', 'good_point', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
-            [['character_name', 'reason', 'youtube', 'facebook'], 'string', 'max' => 255],
+            [['parent_id', 'status', 'bad_point', 'good_point', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
+            [['server', 'character_name', 'youtube', 'facebook'], 'string', 'max' => 255],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            [['good_point', 'bad_point'], 'default', 'value' => 0],
         ];
     }
 
