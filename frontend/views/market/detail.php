@@ -6,6 +6,7 @@ use common\classes\ItemHelper;
 use common\models\Item;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 $label = [
     '',
@@ -31,13 +32,21 @@ $this->registerCss("
 $this->title = $model->item->nameSlot;
 ?>
 <div class="shop-item-view">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3><?= 
+            	Html::img(Yii::$app->params['item_large_image_url']. $model->item->source_id .'.gif'). ' '.
+            	($model->enhancement ? '+'. $model->enhancement.' ' : '').
+            	Html::encode($this->title)
 
-    <h3><?= 
-    	Html::img(Yii::$app->params['item_large_image_url']. $model->item->source_id .'.gif'). ' '.
-    	($model->enhancement ? '+'. $model->enhancement.' ' : '').
-    	Html::encode($this->title)
-    ?></h3>
-
+            ?></h3>
+        </div>
+        <div class="col-xs-2">
+            <!--div class="fb-send" data-href="http://ro108.com/iris/market/detail?id=228" data-size="large" style="margin-top: 50px"></div-->
+            <div class="fb-send" data-href="<?= Yii::$app->request->hostInfo . Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) ?>" data-size="large" style="margin-top: 50px"></div>
+        </div>
+    </div>
+    
     <?php 
     $attributes = [];
 
