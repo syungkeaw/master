@@ -18,13 +18,12 @@ Select23Asset::register($this);
 /* @var $model common\models\Shop */
 /* @var $form yii\widgets\ActiveForm */
 
+$maps = '';
 foreach(glob('../web/images/maps/*.*') as $filename){
     $filename = str_replace('../web/images/maps/', '', $filename);
     $filename = str_replace('.gif', '', $filename);
-    $maps[$filename] = $filename;
+    $maps .= '{id: "'.$filename.'",text: "'.$filename.'"},';
  }
-// echo '<pre>', print_r($maps);
-// die;
 
 $items = '';
 foreach($item_model as $item){
@@ -76,6 +75,7 @@ $this->registerJs("
     }
 
     var items = [".$items."];
+    var maps = [".$maps."];
     var query = function (q) {
         var pageSize,
             results;
@@ -108,6 +108,16 @@ $this->registerJs("
         formatLoadMore   : 'Loading more...',
         formatResult: repoFormatResult,
         formatSelection: repoFormatSelection,
+        escapeMarkup: function (m) { return m; },
+        dropdownCssClass: 'bigdrop',
+        query            : query,
+    });
+
+    $('.select2map').select2({
+        data: maps,
+        formatLoadMore   : 'Loading more...',
+        formatResult: getSelectTemplateForMap,
+        formatSelection: getSelectTemplateForMap,
         escapeMarkup: function (m) { return m; },
         dropdownCssClass: 'bigdrop',
         query            : query,
@@ -192,6 +202,9 @@ $this->registerJs("
         return '<div class=\"span2\"><img src=\"".Yii::$app->params['item_small_image_url']. "' + item_img + '.gif\" /> '+ item.text +'</div>';
     }
 
+    function getSelectTemplateForMap(map) {
+        return '<div class=\"span2\"><img src=\"". Yii::getAlias('@web') ."/images/maps/'+ map.text +'.gif\" style=\"width:25px\"/> '+ map.text +'</div>';
+    }
 ", View::POS_READY);
 
 $this->registerCss("
@@ -220,7 +233,7 @@ $this->registerCss("
                     <?= $form->field($shop_model, 'shop_type')->dropDownList(['s' => Yii::t('app', 'Sale'), 'b' => Yii::t('app', 'Buy')]) ?>
                     <?= $form->field($shop_model, 'shop_name')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($shop_model, 'character')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($shop_model, 'map')->dropDownList($maps) ?>
+                    <?= $form->field($shop_model, 'map')->hiddenInput(['class'=> 'select2map', 'style' => 'width: 100%;']) ?>
                     <?= $form->field($shop_model, 'location')->textInput(['maxlength' => true, 'readonly' => true, 'placeholder' => Yii::t('app', 'Click on the map above to fill location.')]) ?>
                     <?= $form->field($shop_model, 'server')->hiddenInput(['value'=> Yii::$app->request->get('server')])->label(false) ?>
                 </div>
@@ -359,4 +372,3 @@ $this->registerCss("
     <?php ActiveForm::end(); ?>
 
 </div>
-
