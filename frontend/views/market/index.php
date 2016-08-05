@@ -186,12 +186,13 @@ $this->registerJs("
                'headerOptions' => [
                     'class' => 'col-md-2'
                 ],
+                'contentOptions' => ['style' => 'text-align:right;'],
             ],
             [
                 'attribute' => 'shop.character',
                 'label' => Yii::t('app', 'Owner'),
                 'value' => function($model){
-                    return '<div class="ellipsis" title="'. $model->shop->character .'">'. $model->shop->character. '</div>';
+                    return '<div class="ellipsis" title="'. $model->shop->character .'" data-toggle="tooltip">'. $model->shop->character. '</div>';
                 },
                 'format' => 'raw',
                 'headerOptions' => [
@@ -202,7 +203,7 @@ $this->registerJs("
                 'attribute' => 'shop.shop_name',
                 'label' => Yii::t('app', 'Shop Name'),
                 'value' => function($model){
-                    return '<div class="ellipsis" title="'. $model->shop->shop_name .'">'. $model->shop->shop_name. '</div>';
+                    return '<div class="ellipsis" title="'. $model->shop->shop_name .'" data-toggle="tooltip">'. $model->shop->shop_name. '</div>';
                 },
                 'format' => 'raw',
                 'headerOptions' => [
@@ -214,8 +215,10 @@ $this->registerJs("
                 'label' => Yii::t('app', 'Shop Type'),
                 'value' => function($model){
                     return $model->shop['shop_type'] == 's' ? 
-                        Icon::show('usd', ['class' => 'text-success']) : Icon::show('btc', ['class' => 'text-info']);
+                        Icon::show('usd', ['class' => 'text-success', 'title' => Yii::t('app', 'selling'), 'data-toggle' => 'tooltip']) :
+                        Icon::show('btc', ['class' => 'text-info', 'title' => Yii::t('app', 'buying'), 'data-toggle' => 'tooltip']);
                 },
+                'contentOptions' => ['style' => 'text-align:center;'],
                 'format' => 'raw',
                 'filter' => Html::dropDownList(
                     'ShopItemSearch[shop.shop_type]',
