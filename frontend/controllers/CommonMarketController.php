@@ -62,12 +62,12 @@ class CommonMarketController extends Controller
         $dataProvider->query->andWhere(['<', 'shop_item.delete_count', 10]);
 
         if(empty(Yii::$app->request->get('duration')) || !is_numeric(Yii::$app->request->get('duration'))){
-            $dataProvider->query->andWhere(
-                ['OR', 
-                    ['>', 'shop_item.created_at', (time()- 60 * 60 * 3)],
-                    ['AND', ['IS NOT', 'shop.created_by', null], ['>', 'shop_item.updated_at', (time()- 60 * 60 * 6)]],
-                ]
-            );
+            // $dataProvider->query->andWhere(
+            //     ['OR', 
+            //         ['>', 'shop_item.created_at', (time()- 60 * 60 * 3)],
+            //         ['AND', ['IS NOT', 'shop.created_by', null], ['>', 'shop_item.updated_at', (time()- 60 * 60 * 6)]],
+            //     ]
+            // );
         }else{
             $dataProvider->query->andWhere(['>', 'shop_item.updated_at', (time()- 60 * Yii::$app->request->get('duration'))]);
         }

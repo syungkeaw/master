@@ -61,7 +61,7 @@ $this->registerJs("
                 'duration',
                 Yii::$app->request->get('duration'),
                 [
-                    '' => Yii::t('app', 'Default Later'),
+                    '' => Yii::t('app', 'Total'),
                     '5' => '5 ' . Yii::t('app', 'Minute Later'),
                     '15' => '15 ' . Yii::t('app', 'Minute Later'),
                     '30' => '30 ' . Yii::t('app', 'Minute Later'),
