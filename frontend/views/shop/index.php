@@ -39,7 +39,7 @@ $this->registerJs("
 <div class="row">  
     <div class="col-md-6">
         <p>
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '. Yii::t('app', 'Create Shop'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Icon::show('cart-plus'). Yii::t('app', 'Open Shop'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     </div>
     <div class="col-md-6 text-right">
@@ -238,7 +238,7 @@ $this->registerJs("
         if(iFrameID) {
             // here you can make the height, I delete it first, then I make it again
             iFrameID.height = "";
-            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 250 + "px";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 280 + "px";
         }   
     }
 </script>   

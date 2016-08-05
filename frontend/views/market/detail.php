@@ -19,6 +19,10 @@ $elements = Item::getElements();
 $very = Item::getVeries();
 
 $this->registerJs("
+    $('#item-detail-toggle').click(function(e){
+        e.preventDefault();
+        $('#item-detail').toggle();
+    });
 ", View::POS_READY);
 
 $this->registerCss("
@@ -158,13 +162,16 @@ $this->title = $model->item->nameSlot;
     ?>
 
     <hr>
-    <h3><?= Yii::t('app', 'Item Infomation') ?> <?= Html::img(Yii::$app->params['item_small_image_url']. ItemHelper::getImgFileName($model->item)) ?></h3> 
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => $attributes,
-    ]) ?>
+    <h3><?= Html::a(Yii::t('app', 'Item Infomation'). ' ' .Html::img(Yii::$app->params['item_small_image_url']. ItemHelper::getImgFileName($model->item)), [''], ['id' => 'item-detail-toggle']) ?></h3> 
+    <div id="item-detail" style="display: none;">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => $attributes,
+        ]) ?>
+    </div>
 
+    <hr>
 </div>
 
 <div class="row">

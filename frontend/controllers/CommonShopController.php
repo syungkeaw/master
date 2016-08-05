@@ -95,6 +95,7 @@ class CommonShopController extends Controller
     {
         $searchModel = new ShopSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
         $dataProvider->query->andFilterWhere(['shop.created_by' => Yii::$app->user->identity->id]);
         $items = Item::find()->all();
 

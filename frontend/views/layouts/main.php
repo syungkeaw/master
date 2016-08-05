@@ -168,15 +168,20 @@ $this->registerCss("
             </div>
         </div>
 
-        <?= Html::a(Icon::show('bomb'). 'ฉันพึ่งเปิดไป', 
-            [Yii::$app->request->get('server'). '/shop/recent'],
-            [
-                'class' => 'btn btn-default',
-                'style' => 'position: fixed;
-                            bottom: 35px;
-                            left: 100px;
-                            z-index: 99999999;',
-            ]) ?>
+        <?php
+            if (Yii::$app->user->isGuest) {
+                echo Html::a(Icon::show('bomb'). 'ฉันพึ่งเปิดไป', 
+                [Yii::$app->request->get('server'). '/shop/recent'],
+                [
+                    'class' => 'btn btn-default',
+                    'style' => 'position: fixed;
+                                bottom: 35px;
+                                left: 100px;
+                                z-index: 99999999;',
+                ]);
+            }
+        ?>
+        
     </div>
 </div>
 

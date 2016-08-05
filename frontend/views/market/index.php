@@ -34,7 +34,7 @@ $label = [
 ];
 
 if(Yii::$app->user->isGuest){
-    echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
+    echo Html::a(Icon::show('cart-plus'). Yii::t('app', 'Open Shop'), [Yii::$app->request->get('server').'/shop/create'], ['class' => 'btn btn-success']);
 }else{
     echo Html::a(Icon::show('shopping-cart'). Yii::t('app', 'My Shop'), [Yii::$app->request->get('server').'/shop'], ['class' => 'btn btn-success']);
 }
@@ -319,7 +319,7 @@ $this->registerJs("
         if(iFrameID) {
             // here you can make the height, I delete it first, then I make it again
             iFrameID.height = "";
-            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 250 + "px";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 280 + "px";
         }   
     }
 </script>   

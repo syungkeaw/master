@@ -7,6 +7,7 @@ use common\classes\RoHelper;
 use common\models\Shop;
 use kartik\dropdown\DropdownX;
 use yii\web\View;
+use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ShopSearch */
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <div class="row">  
         <div class="col-md-6">
             <p>
-                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '. Yii::t('app', 'Create Shop'), ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a(Icon::show('cart-plus'). Yii::t('app', 'Open Shop'), ['create'], ['class' => 'btn btn-success']) ?>
             </p>
         </div>
         <div class="col-md-6 text-right">
