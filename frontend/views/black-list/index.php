@@ -57,10 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'bad_point',
                 'label' => Yii::t('app', 'Vote'),
                 'value' => function($model){
-                    $bad_size = $model['bad_point'] > $model['good_point'] ? 'font-size: 25px;color:red;' : '';
-                    $good_size = $model['good_point'] > $model['bad_point'] ? 'font-size: 25px;color:green;' : '';
-                    return  Icon::show('thumbs-down', ['style' => $bad_size]). ' ' .number_format($model['bad_point']). '   ' .
-                            Icon::show('thumbs-up', ['style' => $bad_size]). ' ' .number_format($model['good_point']);
+                    $bad_size = $model['bad_point'] > $model['good_point'] ? 'font-size: 25px;' : '';
+                    $good_size = $model['good_point'] > $model['bad_point'] ? 'font-size: 25px;' : '';
+                    return  Html::a(Icon::show('thumbs-down', ['style' => 'color:#ddd;'. $bad_size]), ['', 'vote' => 'bad', 'id' => $model['id']]). ' ' .number_format($model['bad_point']). '   ' .
+                            Html::a(Icon::show('thumbs-up', ['style' => 'color:#ddd;'. $good_size]), ['', 'vote' => 'good', 'id' => $model['id']]). ' ' .number_format($model['good_point']);
                 },
                 'format' => 'raw',
                 'headerOptions' => [

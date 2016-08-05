@@ -40,6 +40,12 @@ class CommonBlackListController extends Controller
      */
     public function actionIndex()
     {
+        $_get = Yii::$app->request->get();
+
+        if(isset($_get['vote'])){
+            $this->addVote($_get);
+        }
+
         $searchModel = new BlackListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -126,4 +132,16 @@ class CommonBlackListController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function addVote($_get)
+    {
+        $model = $this->findModel($_get['id']);
+
+        if($_get['vote'] == 'bad')
+            $model->bad_point = $model->bad_point + 1;
+        else
+            $model->good_point = $model->good_point + 1;
+
+        $model->save();
+    }   
 }
