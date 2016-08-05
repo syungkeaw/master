@@ -14,6 +14,7 @@ use kartik\select2\Select2;
 use yii\web\JsExpression;
 use kartik\dropdown\DropdownX;
 use kartik\icons\Icon;
+use yii\helpers\Url;
 
 Icon::map($this);  
 
@@ -57,9 +58,21 @@ $this->registerJs("
                 'attribute' => 'item.item_name',
                 'label' => Yii::t('app', 'Selling Items'),
                 'value' => function($model){
-                    $item = Html::img(Yii::$app->params['item_small_image_url']. ItemHelper::getImgFileName($model->item)) .' '.
-                        $model->item['nameSlot'];
-                    return $item;
+                    $item = Html::img(Yii::$app->params['item_small_image_url'].
+                        ItemHelper::getImgFileName($model->item)) .' '.
+                        Html::a($model->item['nameSlot'], '#', [
+                            'class' => 'modalButton',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#detailModal',
+                            'onClick' => '$("#detailModal iframe").attr("src", "'. Url::to([Yii::$app->request->get('server'). '/market/detail', 'id' => $model->id]) .'")',
+                        ]);
+                    return $item .
+                        ($model->shop['created_by'] ? ' '. Icon::show('registered', [
+                            'class' => 'text-success',
+                            'style' => 'font-size:12px',
+                            'data-toggle' => 'tooltip',
+                            'title' => Yii::t('app', 'registered'),
+                        ]) : '');
                 },
                 'format' => 'raw',
                 'filter' => Typeahead::widget([
@@ -163,6 +176,27 @@ $this->registerJs("
                 'format' => 'raw',
             ],
             [
+                'attribute' => 'shop.shop_type',
+                'label' => Yii::t('app', 'Shop Type'),
+                'value' => function($model){
+                    return $model->shop['shop_type'] == 's' ? 
+                        Icon::show('usd', ['class' => 'text-success', 'title' => Yii::t('app', 'selling'), 'data-toggle' => 'tooltip']) :
+                        Icon::show('btc', ['class' => 'text-info', 'title' => Yii::t('app', 'buying'), 'data-toggle' => 'tooltip']);
+                },
+                'contentOptions' => ['style' => 'text-align:center;'],
+                'format' => 'raw',
+                'filter' => Html::dropDownList(
+                    'ShopItemSearch[shop.shop_type]',
+                    $searchModel['shop.shop_type'],
+                    [
+                        '' => Yii::t('app', 'All'),
+                        's' => Yii::t('app', 'Sale'),
+                        'b' => Yii::t('app', 'Buy'),
+                    ],
+                    ['class' => 'form-control']
+                ),
+            ],
+            [
                 'label' => Yii::t('app', 'Feedback'),
                 'value' => function($model){
                     return Icon::show('thumbs-up'). ' '. $model->like. ' '. Icon::show('thumbs-down') .' ' .$model->report;
@@ -198,5 +232,28 @@ $this->registerJs("
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
+<script type="text/javascript">
+    function iframeLoaded() {
+        var iFrameID = document.getElementById('iframeDetail');
+        if(iFrameID) {
+            // here you can make the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + 250 + "px";
+        }   
+    }
+</script>   
+<!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+  <div class="modal-dialog" role="document" style="width:50%;min-width: 750px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <iframe id="iframeDetail" frameborder="0" style="width:100%;" onload="iframeLoaded()"></iframe>
+        </div>
+    </div>
+  </div>
+</div>
 
 

@@ -48,7 +48,7 @@ class CommonShopController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create',],
+                        'actions' => ['recent', 'create',],
                         'roles' => ['?'],
                     ],
                 ],
@@ -262,6 +262,9 @@ class CommonShopController extends Controller
         if ($shop_model->load(Yii::$app->request->post()) && $shop_model->validate()) {
             if (Model::loadMultiple($shop_item_model, Yii::$app->request->post()) && Model::validateMultiple($shop_item_model)) {
                 if($shop_model->save()){
+
+                    $new_sell = [];
+
                     foreach ($shop_item_model as $key => $model) {
                         if(is_null($shop_item_model_old)|| ($shop_item_model_old[$key]->item_id != $model->item_id
                                                         || $shop_item_model_old[$key]->amount != $model->amount
@@ -279,15 +282,59 @@ class CommonShopController extends Controller
                             if($model->item_id) {
                                 $model->shop_id = $shop_model->id;
                                 $model->save();
+                                $new_sell[] = $model->id;
                             }
                         }
 
                     }
+
+                    $justSell = json_decode(Yii::$app->request->cookies->getValue('justSell'));
+                    $justSell = !is_array($justSell) ? [$justSell] : $justSell;
+                    $justSell = ArrayHelper::merge($justSell, $new_sell);
+
+                    Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                        'name' => 'justSell',
+                        'value' => json_encode($justSell),
+                        'expire' => (time() + 60 * 60 * 24 * 7),
+                    ]));
+
                 }
                 return Yii::$app->user->isGuest ? 
                     $this->redirect([Yii::$app->request->get('server') .'/market']) :
                     $this->redirect([Yii::$app->request->get('server') .'/shop']);
             }
         } 
+    }
+
+    public function actionRecent()
+    {
+        $searchModel = new ShopItemSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = false;
+        $dataProvider->query->andFilterWhere(['shop.server' => Yii::$app->request->get('server')]);
+
+        $justSell = json_decode(Yii::$app->request->cookies->getValue('justSell'));
+        $justSell = !is_array($justSell) ? [$justSell] : $justSell;
+        $dataProvider->query->andWhere(['IN', 'shop_item.id', array_filter($justSell)]);
+
+        $items = Item::find()->all();
+
+        $shopItem = ShopItem::find()->asArray()->all();
+        $option = [];
+        $option = array_merge($option, ArrayHelper::getColumn($shopItem, 'card_1'));
+        $option = array_merge($option, ArrayHelper::getColumn($shopItem, 'card_2'));
+        $option = array_merge($option, ArrayHelper::getColumn($shopItem, 'card_3'));
+        $option = array_merge($option, ArrayHelper::getColumn($shopItem, 'card_4'));
+        $option = array_filter($option);
+        array_push($option, '994', '995', '996', '997');
+        $option_item = Item::findAll(['source_id' => $option]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'items' => $items,
+            'option_item' => $option_item,
+            'server' => Yii::$app->request->get('server'),
+        ]);
     }
 }
