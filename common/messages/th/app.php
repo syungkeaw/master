@@ -93,4 +93,9 @@ return [
     'Month Later' => 'เดือนล่าสุด',
     'Default Later' => 'เลือกช่วงเวลา (ค่าเริ่มต้น)',
     'Black List' => 'คนโกง',
+    'Black Lists' => 'คนโกง',
+    'Character Name' => 'ชื่อตัวละคร',
+    'Reason' => 'สาเหตุ',
+    'Create Black List' => 'รายงานคนโกง',
+    'Create' => 'รายงาน',
 ];

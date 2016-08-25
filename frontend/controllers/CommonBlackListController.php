@@ -139,7 +139,7 @@ class CommonBlackListController extends Controller
 
         if($_get['vote'] == 'bad')
             $model->bad_point = $model->bad_point + 1;
-        else
+        else if($_get['vote'] == 'good')
             $model->good_point = $model->good_point + 1;
 
         $model->save();

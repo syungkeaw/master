@@ -12,37 +12,28 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="black-list-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?php
-        // <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary'])
-        // <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-        //     'class' => 'btn btn-danger',
-        //     'data' => [
-        //         'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-        //         'method' => 'post',
-        //     ],
-        // ]) 
-        ?>
-    </p>
-
+    <h1><?= Html::encode($this->title) ?> <small>โดย <?= $model->created_by ? $model->created_by : '-' ?> <?= date('d/m/Y H:i:s', $model->created_at) ?></small></h1>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'character_name',
             'reason',
-            'parent_id',
-            'youtube',
-            'facebook',
-            'status',
-            'bad_point',
-            'good_point',
-            'created_by',
-            'created_at',
-            'updated_by',
-            'updated_at',
+            [
+                'label' => Yii::t('app', 'Youtube'),
+                'value' => $model->youtube ? '<a href="'. $model->youtube .'" target="_blank">'. $model->youtube .'</a>' : '-',
+                'format' => 'raw',
+            ],
+            [
+                'label' => Yii::t('app', 'Facebook'),
+                'value' => '<a href="'. $model->facebook .'" target="_blank">'. $model->facebook .'</a>',
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
 
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="fb-comments" data-numposts="5" data-width="1000"></div>
+    </div>
 </div>
